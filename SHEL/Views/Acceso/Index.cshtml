@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Sistema Hospitalario En Línea";
+}
+
+<br />
+<h4>Ingreso al Sistema</h4>
+<div class="alert aler-@ViewBag.alerta"></div>
+<form id="FrmIngreso" action="/Acceso/Persona" method="post">
+    <table>
+        <tr>
+            <td style="padding: 10px">Identificación:</td>
+            <td style="padding: 10px"><input class="form-control" type="text" name="identificacion" minlength="6" maxlenght="13" id="identificacion" required /></td>
+        </tr>
+
+        <tr>
+            <td style="padding: 10px">Clave:</td>
+            <td style="padding: 10px"><input class="form-control" type="password" name="password" minlength="6" maxlenght="30" id="password" required /></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px"></td>
+            <td style="padding: 10PX">
+                <button class="btn btn-success" type="submit" name="btngrabar" id="btngrabar">
+                    <span class="glyphicon glyphicon-save">Ingresar</span>
+                </button>
+            </td>
+        </tr>
+    </table>
+</form>
+@section scripts
+{
+    <script>
+        $(document).ready(function ()
+        {
+            $("#FrmIngreso").submit(function (e)
+            {
+            e.preventDefault()
+            //Se ejecuta el Controlador Acceso / Persona
+            url = "@Url.Content("~/Acceso/Persona")"
+            parametros = $(this).serialize()
+            $.post(url, parametros, function (data) {
+                if (data == "1")
+                {
+                    //Si la Ejecucion es Satisfactoria Se envia al Menu Root
+                    document.location.href="@Url.Content("~/")"
+                }
+                else
+                {
+                    //En caso de no obtener la información se muestra el mensaje de Error
+                    alert(data)
+                }
+            })
+        })
+    })
+    </script>
+}

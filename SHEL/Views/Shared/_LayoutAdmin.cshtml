@@ -26,7 +26,8 @@
             <button class="btn btn-primary" onclick="location.href = '/Registro/Persona'">Personas</button>
             <button class="btn btn-primary" onclick="location.href = '/Registro/Cita'">Citas</button>
             <button class="btn btn-primary" onclick="location.href = '/Visualizar/Auditoria'">Auditoria</button>
-            <button class="btn btn-primary" onclick="location.href = '/Home/Cerrar'">Cerrar Sesión</button>
+            <button class="btn btn-primary" onclick="location.href = '/Acceso/Cerrar'">Cerrar Sesión</button>
+            
         </div>
     </nav>
     <main class="row" style="margin: 2% 2% 2% 2%; background-color:beige; width:96%">
@@ -38,5 +39,8 @@
     <footer style="background-color: darkblue; color:white; text-align:center">
         <br /><small>Todos los derechos reservados 2022 -      German Camacho B.</small><br />
     </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
