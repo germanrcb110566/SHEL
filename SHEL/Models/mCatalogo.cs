@@ -25,7 +25,7 @@ namespace SHEL.Models
             this.mPermisos1 = new HashSet<mPermisos>();
             this.mPermisos2 = new HashSet<mPermisos>();
             this.mPersona3 = new HashSet<mPersona>();
-            this.mPersona4 = new HashSet<mPersona>();
+            this.rTipo_Persona = new HashSet<rTipo_Persona>();
         }
     
         public int registro_id { get; set; }
@@ -51,6 +51,6 @@ namespace SHEL.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mPersona> mPersona3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<mPersona> mPersona4 { get; set; }
+        public virtual ICollection<rTipo_Persona> rTipo_Persona { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace SHEL.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public mCalendario()
         {
-            this.mPersona = new HashSet<mPersona>();
+            this.rMedico_Calendario = new HashSet<rMedico_Calendario>();
         }
     
         public int registro_id { get; set; }
@@ -30,6 +30,6 @@ namespace SHEL.Models
         public int intervalo_citas { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<mPersona> mPersona { get; set; }
+        public virtual ICollection<rMedico_Calendario> rMedico_Calendario { get; set; }
     }
 }

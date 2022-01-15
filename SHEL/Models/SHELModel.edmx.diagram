@@ -4,17 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1af31e7c7307410e9dc4011547224148" Name="Diagram1">
-        <EntityTypeShape EntityType="SHELModel.mAtencion" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SHELModel.mAuditoria" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SHELModel.mCalendario" Width="1.5" PointX="3.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SHELModel.mCatalogo" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SHELModel.mCita" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+      <Diagram DiagramId="20d2a529cb154666968e85cdc93839c6" Name="Diagram1">
+        <EntityTypeShape EntityType="SHELModel.mAtencion" Width="1.5" PointX="7.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SHELModel.mAuditoria" Width="1.5" PointX="5.25" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SHELModel.mCalendario" Width="1.5" PointX="3" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SHELModel.mCatalogo" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SHELModel.mCita" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="SHELModel.mParametros" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SHELModel.mPermisos" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SHELModel.mPersona" Width="1.5" PointX="6" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SHELModel.mPermisos" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SHELModel.mPersona" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SHELModel.rMedico_Calendario" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SHELModel.rTipo_Persona" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
         <AssociationConnector Association="SHELModel.FK_mAtencion_mCita1" ManuallyRouted="false" />
         <AssociationConnector Association="SHELModel.FK_mAuditoria_mPersonas" ManuallyRouted="false" />
+        <AssociationConnector Association="SHELModel.FK_rMedico_Calendario_mCalendario" ManuallyRouted="false" />
         <AssociationConnector Association="SHELModel.FK_mCita_mCatalogo" ManuallyRouted="false" />
         <AssociationConnector Association="SHELModel.FK_mPmC_CiudadResidencia" ManuallyRouted="false" />
         <AssociationConnector Association="SHELModel.FK_mPmC_Genero" ManuallyRouted="false" />
@@ -23,10 +26,11 @@
         <AssociationConnector Association="SHELModel.FK_mPmC_Permiso" ManuallyRouted="false" />
         <AssociationConnector Association="SHELModel.FK_mPmC_Rol" ManuallyRouted="false" />
         <AssociationConnector Association="SHELModel.FK_mPmC_TIdentificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="SHELModel.FK_rTipo_Persona_mCatalogo" ManuallyRouted="false" />
         <AssociationConnector Association="SHELModel.FK_mCita_mPersona" ManuallyRouted="false" />
         <AssociationConnector Association="SHELModel.FK_mCita_mPersona1" ManuallyRouted="false" />
-        <AssociationConnector Association="SHELModel.rMedico_Calendario" ManuallyRouted="false" />
-        <AssociationConnector Association="SHELModel.rTipo_Persona" ManuallyRouted="false" />
+        <AssociationConnector Association="SHELModel.FK_rMedico_Calendario_mPersona" ManuallyRouted="false" />
+        <AssociationConnector Association="SHELModel.FK_rTipoPersona_mPersonas" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

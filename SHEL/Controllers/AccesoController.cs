@@ -18,7 +18,7 @@ namespace SHEL.Controllers
         {
             try
             {
-                using (SHELEntity db = new SHELEntity())
+                using (SHELEntities db = new SHELEntities())
                 {
                     var lst = from d in db.mPersona
                               where d.identificacion == identificacion && d.clave == password && d.estado == true

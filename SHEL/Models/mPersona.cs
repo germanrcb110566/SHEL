@@ -20,8 +20,8 @@ namespace SHEL.Models
             this.mAuditoria = new HashSet<mAuditoria>();
             this.mCita = new HashSet<mCita>();
             this.mCita1 = new HashSet<mCita>();
-            this.mCalendario = new HashSet<mCalendario>();
-            this.mCatalogo4 = new HashSet<mCatalogo>();
+            this.rMedico_Calendario = new HashSet<rMedico_Calendario>();
+            this.rTipo_Persona = new HashSet<rTipo_Persona>();
         }
     
         public int registro_id { get; set; }
@@ -49,8 +49,8 @@ namespace SHEL.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mCita> mCita1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<mCalendario> mCalendario { get; set; }
+        public virtual ICollection<rMedico_Calendario> rMedico_Calendario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<mCatalogo> mCatalogo4 { get; set; }
+        public virtual ICollection<rTipo_Persona> rTipo_Persona { get; set; }
     }
 }

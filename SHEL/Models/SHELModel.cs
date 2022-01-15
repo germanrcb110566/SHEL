@@ -8,7 +8,7 @@ namespace SHEL.Models
     public partial class SHELModel : DbContext
     {
         public SHELModel()
-            : base("name=SHELModel")
+            : base("name=SHELModel1")
         {
         }
 
@@ -20,6 +20,8 @@ namespace SHEL.Models
         public virtual DbSet<mParametros> mParametros { get; set; }
         public virtual DbSet<mPermisos> mPermisos { get; set; }
         public virtual DbSet<mPersona> mPersona { get; set; }
+        public virtual DbSet<rMedico_Calendario> rMedico_Calendario { get; set; }
+        public virtual DbSet<rTipo_Persona> rTipo_Persona { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -36,9 +38,10 @@ namespace SHEL.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<mCalendario>()
-                .HasMany(e => e.mPersona)
-                .WithMany(e => e.mCalendario)
-                .Map(m => m.ToTable("rMedico_Calendario").MapLeftKey("calendario_id").MapRightKey("medico_id"));
+                .HasMany(e => e.rMedico_Calendario)
+                .WithRequired(e => e.mCalendario)
+                .HasForeignKey(e => e.calendario_id)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<mCatalogo>()
                 .HasMany(e => e.mCita)
@@ -89,9 +92,10 @@ namespace SHEL.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<mCatalogo>()
-                .HasMany(e => e.mPersona4)
-                .WithMany(e => e.mCatalogo4)
-                .Map(m => m.ToTable("rTipo_Persona").MapLeftKey("tipopersona_id").MapRightKey("persona_id"));
+                .HasMany(e => e.rTipo_Persona)
+                .WithRequired(e => e.mCatalogo)
+                .HasForeignKey(e => e.tipopersona_id)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<mCita>()
                 .HasOptional(e => e.mAtencion)
@@ -113,6 +117,18 @@ namespace SHEL.Models
                 .HasMany(e => e.mCita1)
                 .WithRequired(e => e.mPersona1)
                 .HasForeignKey(e => e.medico_id)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<mPersona>()
+                .HasMany(e => e.rMedico_Calendario)
+                .WithRequired(e => e.mPersona)
+                .HasForeignKey(e => e.medico_id)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<mPersona>()
+                .HasMany(e => e.rTipo_Persona)
+                .WithRequired(e => e.mPersona)
+                .HasForeignKey(e => e.persona_id)
                 .WillCascadeOnDelete(false);
         }
     }

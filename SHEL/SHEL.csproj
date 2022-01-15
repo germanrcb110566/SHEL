@@ -159,6 +159,12 @@
     <Compile Include="Models\mPersona.cs">
       <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\rMedico_Calendario.cs">
+      <DependentUpon>SHELModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\rTipo_Persona.cs">
+      <DependentUpon>SHELModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SHELModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
