@@ -19,5 +19,9 @@ namespace SHEL.Models
         public int modulo_id { get; set; }
         public int accion_id { get; set; }
         public bool estado { get; set; }
+    
+        public virtual mCatalogo mCatalogo { get; set; }
+        public virtual mCatalogo mCatalogo1 { get; set; }
+        public virtual mCatalogo mCatalogo2 { get; set; }
     }
 }

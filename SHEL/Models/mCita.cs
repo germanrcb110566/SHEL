@@ -24,6 +24,7 @@ namespace SHEL.Models
         public bool estado { get; set; }
     
         public virtual mAtencion mAtencion { get; set; }
+        public virtual mCatalogo mCatalogo { get; set; }
         public virtual mPersona mPersona { get; set; }
         public virtual mPersona mPersona1 { get; set; }
     }

@@ -20,8 +20,8 @@ namespace SHEL.Models
             this.mAuditoria = new HashSet<mAuditoria>();
             this.mCita = new HashSet<mCita>();
             this.mCita1 = new HashSet<mCita>();
-            this.rTipo_Persona = new HashSet<rTipo_Persona>();
             this.mCalendario = new HashSet<mCalendario>();
+            this.mCatalogo4 = new HashSet<mCatalogo>();
         }
     
         public int registro_id { get; set; }
@@ -40,13 +40,17 @@ namespace SHEL.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mAuditoria> mAuditoria { get; set; }
+        public virtual mCatalogo mCatalogo { get; set; }
+        public virtual mCatalogo mCatalogo1 { get; set; }
+        public virtual mCatalogo mCatalogo2 { get; set; }
+        public virtual mCatalogo mCatalogo3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mCita> mCita { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mCita> mCita1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<rTipo_Persona> rTipo_Persona { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mCalendario> mCalendario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<mCatalogo> mCatalogo4 { get; set; }
     }
 }

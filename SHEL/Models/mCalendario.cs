@@ -27,6 +27,7 @@ namespace SHEL.Models
         public System.TimeSpan horario_hasta_m { get; set; }
         public System.TimeSpan horario_desde_v { get; set; }
         public System.TimeSpan horario_hasta_v { get; set; }
+        public int intervalo_citas { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mPersona> mPersona { get; set; }

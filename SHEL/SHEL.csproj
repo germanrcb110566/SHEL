@@ -136,48 +136,45 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\mAtencion.cs">
-      <DependentUpon>SHELEntity.tt</DependentUpon>
+      <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\mAuditoria.cs">
-      <DependentUpon>SHELEntity.tt</DependentUpon>
+      <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\mCalendario.cs">
-      <DependentUpon>SHELEntity.tt</DependentUpon>
+      <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\mCatalogo.cs">
-      <DependentUpon>SHELEntity.tt</DependentUpon>
+      <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\mCita.cs">
-      <DependentUpon>SHELEntity.tt</DependentUpon>
+      <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\mParametros.cs">
-      <DependentUpon>SHELEntity.tt</DependentUpon>
+      <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\mPermisos.cs">
-      <DependentUpon>SHELEntity.tt</DependentUpon>
+      <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\mPersona.cs">
-      <DependentUpon>SHELEntity.tt</DependentUpon>
+      <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\rTipo_Persona.cs">
-      <DependentUpon>SHELEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SHELEntity.Context.cs">
+    <Compile Include="Models\SHELModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SHELEntity.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SHELEntity.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SHELEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SHELEntity.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SHELEntity.edmx</DependentUpon>
+      <DependentUpon>SHELModel.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SHELModel.cs" />
+    <Compile Include="Models\SHELModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SHELModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SHELModel1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SHELModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -189,24 +186,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\SHELEntity.Context.tt">
+    <Content Include="Models\SHELModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SHELEntity.edmx</DependentUpon>
-      <LastGenOutput>SHELEntity.Context.cs</LastGenOutput>
+      <DependentUpon>SHELModel.edmx</DependentUpon>
+      <LastGenOutput>SHELModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\SHELEntity.tt">
+    <Content Include="Models\SHELModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SHELEntity.edmx</DependentUpon>
-      <LastGenOutput>SHELEntity.cs</LastGenOutput>
+      <DependentUpon>SHELModel.edmx</DependentUpon>
+      <LastGenOutput>SHELModel1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\SHELEntity.edmx">
+    <EntityDeploy Include="Models\SHELModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SHELEntity.Designer.cs</LastGenOutput>
+      <LastGenOutput>SHELModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\SHELEntity.edmx.diagram">
-      <DependentUpon>SHELEntity.edmx</DependentUpon>
+    <Content Include="Models\SHELModel.edmx.diagram">
+      <DependentUpon>SHELModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

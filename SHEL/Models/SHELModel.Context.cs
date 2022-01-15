@@ -13,10 +13,10 @@ namespace SHEL.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SIHEntities : DbContext
+    public partial class SHELEntity : DbContext
     {
-        public SIHEntities()
-            : base("name=SIHEntities")
+        public SHELEntity()
+            : base("name=SHELEntity")
         {
         }
     
@@ -30,9 +30,8 @@ namespace SHEL.Models
         public virtual DbSet<mCalendario> mCalendario { get; set; }
         public virtual DbSet<mCatalogo> mCatalogo { get; set; }
         public virtual DbSet<mCita> mCita { get; set; }
+        public virtual DbSet<mParametros> mParametros { get; set; }
         public virtual DbSet<mPermisos> mPermisos { get; set; }
         public virtual DbSet<mPersona> mPersona { get; set; }
-        public virtual DbSet<rTipo_Persona> rTipo_Persona { get; set; }
-        public virtual DbSet<mParametros> mParametros { get; set; }
     }
 }

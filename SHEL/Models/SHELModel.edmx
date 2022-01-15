@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SIHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SHELModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="mAtencion">
           <Key>
             <PropertyRef Name="cita_id" />
@@ -35,6 +35,7 @@
           <Property Name="horario_hasta_m" Type="time" Precision="7" Nullable="false" />
           <Property Name="horario_desde_v" Type="time" Precision="7" Nullable="false" />
           <Property Name="horario_hasta_v" Type="time" Precision="7" Nullable="false" />
+          <Property Name="intervalo_citas" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="mCatalogo">
           <Key>
@@ -59,15 +60,9 @@
           <Property Name="motivo" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="estado" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="mParametros">
           <Key>
             <PropertyRef Name="registro_id" />
-            <PropertyRef Name="smtpserver" />
-            <PropertyRef Name="smtppuerto" />
-            <PropertyRef Name="correo_sistema" />
-            <PropertyRef Name="clave_correo" />
           </Key>
           <Property Name="registro_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="smtpserver" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -108,7 +103,7 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             <PropertyRef Name="medico_id" />
             <PropertyRef Name="calendario_id" />
           </Key>
-          <Property Name="medico_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="medico_id" Type="int" Nullable="false" />
           <Property Name="calendario_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="rTipo_Persona">
@@ -116,7 +111,7 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             <PropertyRef Name="persona_id" />
             <PropertyRef Name="tipopersona_id" />
           </Key>
-          <Property Name="persona_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="persona_id" Type="int" Nullable="false" />
           <Property Name="tipopersona_id" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_mAtencion_mCita1">
@@ -140,6 +135,18 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             </Principal>
             <Dependent Role="mAuditoria">
               <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mCita_mCatalogo">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mCita" Type="Self.mCita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mCita">
+              <PropertyRef Name="especialidad_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -167,6 +174,90 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_mPmC_CiudadResidencia">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPersona" Type="Self.mPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPersona">
+              <PropertyRef Name="ciudad_residencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_Genero">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPersona" Type="Self.mPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPersona">
+              <PropertyRef Name="genero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_Modulo">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPermisos" Type="Self.mPermisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPermisos">
+              <PropertyRef Name="modulo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_Nacionalidad">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPersona" Type="Self.mPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPersona">
+              <PropertyRef Name="nacionalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_Permiso">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPermisos" Type="Self.mPermisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPermisos">
+              <PropertyRef Name="accion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_Rol">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPermisos" Type="Self.mPermisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPermisos">
+              <PropertyRef Name="rol_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_TIdentificacion">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPersona" Type="Self.mPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPersona">
+              <PropertyRef Name="identificacion_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_rMedico_Calendario_mCalendario">
           <End Role="mCalendario" Type="Self.mCalendario" Multiplicity="1" />
           <End Role="rMedico_Calendario" Type="Self.rMedico_Calendario" Multiplicity="*" />
@@ -191,6 +282,18 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_rTipo_Persona_mCatalogo">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="rTipo_Persona" Type="Self.rTipo_Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="rTipo_Persona">
+              <PropertyRef Name="tipopersona_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_rTipoPersona_mPersonas">
           <End Role="mPersona" Type="Self.mPersona" Multiplicity="1" />
           <End Role="rTipo_Persona" Type="Self.rTipo_Persona" Multiplicity="*" />
@@ -203,25 +306,17 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SIHModelStoreContainer">
+        <EntityContainer Name="SHELModelStoreContainer">
           <EntitySet Name="mAtencion" EntityType="Self.mAtencion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mAuditoria" EntityType="Self.mAuditoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mCalendario" EntityType="Self.mCalendario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mCatalogo" EntityType="Self.mCatalogo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mCita" EntityType="Self.mCita" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mParametros" EntityType="Self.mParametros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mPermisos" EntityType="Self.mPermisos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mPersona" EntityType="Self.mPersona" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rMedico_Calendario" EntityType="Self.rMedico_Calendario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rTipo_Persona" EntityType="Self.rTipo_Persona" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="mParametros" EntityType="Self.mParametros" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [mParametros].[registro_id] AS [registro_id], 
-    [mParametros].[smtpserver] AS [smtpserver], 
-    [mParametros].[smtppuerto] AS [smtppuerto], 
-    [mParametros].[correo_sistema] AS [correo_sistema], 
-    [mParametros].[clave_correo] AS [clave_correo]
-    FROM [dbo].[mParametros] AS [mParametros]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_mAtencion_mCita1" Association="Self.FK_mAtencion_mCita1">
             <End Role="mCita" EntitySet="mCita" />
             <End Role="mAtencion" EntitySet="mAtencion" />
@@ -229,6 +324,10 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
           <AssociationSet Name="FK_mAuditoria_mPersonas" Association="Self.FK_mAuditoria_mPersonas">
             <End Role="mPersona" EntitySet="mPersona" />
             <End Role="mAuditoria" EntitySet="mAuditoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mCita_mCatalogo" Association="Self.FK_mCita_mCatalogo">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mCita" EntitySet="mCita" />
           </AssociationSet>
           <AssociationSet Name="FK_mCita_mPersona" Association="Self.FK_mCita_mPersona">
             <End Role="mPersona" EntitySet="mPersona" />
@@ -238,6 +337,34 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             <End Role="mPersona" EntitySet="mPersona" />
             <End Role="mCita" EntitySet="mCita" />
           </AssociationSet>
+          <AssociationSet Name="FK_mPmC_CiudadResidencia" Association="Self.FK_mPmC_CiudadResidencia">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPersona" EntitySet="mPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_Genero" Association="Self.FK_mPmC_Genero">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPersona" EntitySet="mPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_Modulo" Association="Self.FK_mPmC_Modulo">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPermisos" EntitySet="mPermisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_Nacionalidad" Association="Self.FK_mPmC_Nacionalidad">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPersona" EntitySet="mPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_Permiso" Association="Self.FK_mPmC_Permiso">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPermisos" EntitySet="mPermisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_Rol" Association="Self.FK_mPmC_Rol">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPermisos" EntitySet="mPermisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_TIdentificacion" Association="Self.FK_mPmC_TIdentificacion">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPersona" EntitySet="mPersona" />
+          </AssociationSet>
           <AssociationSet Name="FK_rMedico_Calendario_mCalendario" Association="Self.FK_rMedico_Calendario_mCalendario">
             <End Role="mCalendario" EntitySet="mCalendario" />
             <End Role="rMedico_Calendario" EntitySet="rMedico_Calendario" />
@@ -245,6 +372,10 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
           <AssociationSet Name="FK_rMedico_Calendario_mPersona" Association="Self.FK_rMedico_Calendario_mPersona">
             <End Role="mPersona" EntitySet="mPersona" />
             <End Role="rMedico_Calendario" EntitySet="rMedico_Calendario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rTipo_Persona_mCatalogo" Association="Self.FK_rTipo_Persona_mCatalogo">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="rTipo_Persona" EntitySet="rTipo_Persona" />
           </AssociationSet>
           <AssociationSet Name="FK_rTipoPersona_mPersonas" Association="Self.FK_rTipoPersona_mPersonas">
             <End Role="mPersona" EntitySet="mPersona" />
@@ -255,7 +386,7 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SIHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SHELModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="mAtencion">
           <Key>
             <PropertyRef Name="cita_id" />
@@ -288,6 +419,7 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
           <Property Name="horario_hasta_m" Type="Time" Nullable="false" Precision="7" />
           <Property Name="horario_desde_v" Type="Time" Nullable="false" Precision="7" />
           <Property Name="horario_hasta_v" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="intervalo_citas" Type="Int32" Nullable="false" />
           <NavigationProperty Name="mPersona" Relationship="Self.rMedico_Calendario" FromRole="mCalendario" ToRole="mPersona" />
         </EntityType>
         <EntityType Name="mCatalogo">
@@ -299,6 +431,15 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
           <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="mCita" Relationship="Self.FK_mCita_mCatalogo" FromRole="mCatalogo" ToRole="mCita" />
+          <NavigationProperty Name="mPersona" Relationship="Self.FK_mPmC_CiudadResidencia" FromRole="mCatalogo" ToRole="mPersona" />
+          <NavigationProperty Name="mPersona1" Relationship="Self.FK_mPmC_Genero" FromRole="mCatalogo" ToRole="mPersona" />
+          <NavigationProperty Name="mPermisos" Relationship="Self.FK_mPmC_Modulo" FromRole="mCatalogo" ToRole="mPermisos" />
+          <NavigationProperty Name="mPersona2" Relationship="Self.FK_mPmC_Nacionalidad" FromRole="mCatalogo" ToRole="mPersona" />
+          <NavigationProperty Name="mPermisos1" Relationship="Self.FK_mPmC_Permiso" FromRole="mCatalogo" ToRole="mPermisos" />
+          <NavigationProperty Name="mPermisos2" Relationship="Self.FK_mPmC_Rol" FromRole="mCatalogo" ToRole="mPermisos" />
+          <NavigationProperty Name="mPersona3" Relationship="Self.FK_mPmC_TIdentificacion" FromRole="mCatalogo" ToRole="mPersona" />
+          <NavigationProperty Name="mPersona4" Relationship="Self.rTipo_Persona" FromRole="mCatalogo" ToRole="mPersona" />
         </EntityType>
         <EntityType Name="mCita">
           <Key>
@@ -313,8 +454,19 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
           <Property Name="motivo" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="mAtencion" Relationship="Self.FK_mAtencion_mCita1" FromRole="mCita" ToRole="mAtencion" />
+          <NavigationProperty Name="mCatalogo" Relationship="Self.FK_mCita_mCatalogo" FromRole="mCita" ToRole="mCatalogo" />
           <NavigationProperty Name="mPersona" Relationship="Self.FK_mCita_mPersona" FromRole="mCita" ToRole="mPersona" />
           <NavigationProperty Name="mPersona1" Relationship="Self.FK_mCita_mPersona1" FromRole="mCita" ToRole="mPersona" />
+        </EntityType>
+        <EntityType Name="mParametros">
+          <Key>
+            <PropertyRef Name="registro_id" />
+          </Key>
+          <Property Name="registro_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="smtpserver" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="smtppuerto" Type="Int32" Nullable="false" />
+          <Property Name="correo_sistema" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="clave_correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="mPermisos">
           <Key>
@@ -325,6 +477,9 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
           <Property Name="modulo_id" Type="Int32" Nullable="false" />
           <Property Name="accion_id" Type="Int32" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="mCatalogo" Relationship="Self.FK_mPmC_Modulo" FromRole="mPermisos" ToRole="mCatalogo" />
+          <NavigationProperty Name="mCatalogo1" Relationship="Self.FK_mPmC_Permiso" FromRole="mPermisos" ToRole="mCatalogo" />
+          <NavigationProperty Name="mCatalogo2" Relationship="Self.FK_mPmC_Rol" FromRole="mPermisos" ToRole="mCatalogo" />
         </EntityType>
         <EntityType Name="mPersona">
           <Key>
@@ -344,33 +499,14 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
           <Property Name="clave" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="mAuditoria" Relationship="Self.FK_mAuditoria_mPersonas" FromRole="mPersona" ToRole="mAuditoria" />
+          <NavigationProperty Name="mCatalogo" Relationship="Self.FK_mPmC_CiudadResidencia" FromRole="mPersona" ToRole="mCatalogo" />
+          <NavigationProperty Name="mCatalogo1" Relationship="Self.FK_mPmC_Genero" FromRole="mPersona" ToRole="mCatalogo" />
+          <NavigationProperty Name="mCatalogo2" Relationship="Self.FK_mPmC_Nacionalidad" FromRole="mPersona" ToRole="mCatalogo" />
+          <NavigationProperty Name="mCatalogo3" Relationship="Self.FK_mPmC_TIdentificacion" FromRole="mPersona" ToRole="mCatalogo" />
           <NavigationProperty Name="mCita" Relationship="Self.FK_mCita_mPersona" FromRole="mPersona" ToRole="mCita" />
           <NavigationProperty Name="mCita1" Relationship="Self.FK_mCita_mPersona1" FromRole="mPersona" ToRole="mCita" />
-          <NavigationProperty Name="rTipo_Persona" Relationship="Self.FK_rTipoPersona_mPersonas" FromRole="mPersona" ToRole="rTipo_Persona" />
           <NavigationProperty Name="mCalendario" Relationship="Self.rMedico_Calendario" FromRole="mPersona" ToRole="mCalendario" />
-        </EntityType>
-        <EntityType Name="rTipo_Persona">
-          <Key>
-            <PropertyRef Name="persona_id" />
-            <PropertyRef Name="tipopersona_id" />
-          </Key>
-          <Property Name="persona_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tipopersona_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="mPersona" Relationship="Self.FK_rTipoPersona_mPersonas" FromRole="rTipo_Persona" ToRole="mPersona" />
-        </EntityType>
-        <EntityType Name="mParametros">
-          <Key>
-            <PropertyRef Name="registro_id" />
-            <PropertyRef Name="smtpserver" />
-            <PropertyRef Name="smtppuerto" />
-            <PropertyRef Name="correo_sistema" />
-            <PropertyRef Name="clave_correo" />
-          </Key>
-          <Property Name="registro_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="smtpserver" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="smtppuerto" Type="Int32" Nullable="false" />
-          <Property Name="correo_sistema" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="clave_correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="mCatalogo4" Relationship="Self.rTipo_Persona" FromRole="mPersona" ToRole="mCatalogo" />
         </EntityType>
         <Association Name="FK_mAtencion_mCita1">
           <End Role="mCita" Type="Self.mCita" Multiplicity="1" />
@@ -393,6 +529,102 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             </Principal>
             <Dependent Role="mAuditoria">
               <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mCita_mCatalogo">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mCita" Type="Self.mCita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mCita">
+              <PropertyRef Name="especialidad_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_CiudadResidencia">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPersona" Type="Self.mPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPersona">
+              <PropertyRef Name="ciudad_residencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_Genero">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPersona" Type="Self.mPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPersona">
+              <PropertyRef Name="genero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_Modulo">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPermisos" Type="Self.mPermisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPermisos">
+              <PropertyRef Name="modulo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_Nacionalidad">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPersona" Type="Self.mPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPersona">
+              <PropertyRef Name="nacionalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_Permiso">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPermisos" Type="Self.mPermisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPermisos">
+              <PropertyRef Name="accion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_Rol">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPermisos" Type="Self.mPermisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPermisos">
+              <PropertyRef Name="rol_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mPmC_TIdentificacion">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="1" />
+          <End Role="mPersona" Type="Self.mPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mCatalogo">
+              <PropertyRef Name="registro_id" />
+            </Principal>
+            <Dependent Role="mPersona">
+              <PropertyRef Name="identificacion_tipo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -420,32 +652,23 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_rTipoPersona_mPersonas">
-          <End Role="mPersona" Type="Self.mPersona" Multiplicity="1" />
-          <End Role="rTipo_Persona" Type="Self.rTipo_Persona" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mPersona">
-              <PropertyRef Name="registro_id" />
-            </Principal>
-            <Dependent Role="rTipo_Persona">
-              <PropertyRef Name="persona_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="rMedico_Calendario">
           <End Role="mCalendario" Type="Self.mCalendario" Multiplicity="*" />
           <End Role="mPersona" Type="Self.mPersona" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="SIHEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="rTipo_Persona">
+          <End Role="mCatalogo" Type="Self.mCatalogo" Multiplicity="*" />
+          <End Role="mPersona" Type="Self.mPersona" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SHELEntity" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="mAtencion" EntityType="Self.mAtencion" />
           <EntitySet Name="mAuditoria" EntityType="Self.mAuditoria" />
           <EntitySet Name="mCalendario" EntityType="Self.mCalendario" />
           <EntitySet Name="mCatalogo" EntityType="Self.mCatalogo" />
           <EntitySet Name="mCita" EntityType="Self.mCita" />
+          <EntitySet Name="mParametros" EntityType="Self.mParametros" />
           <EntitySet Name="mPermisos" EntityType="Self.mPermisos" />
           <EntitySet Name="mPersona" EntityType="Self.mPersona" />
-          <EntitySet Name="rTipo_Persona" EntityType="Self.rTipo_Persona" />
-          <EntitySet Name="mParametros" EntityType="Self.mParametros" />
           <AssociationSet Name="FK_mAtencion_mCita1" Association="Self.FK_mAtencion_mCita1">
             <End Role="mCita" EntitySet="mCita" />
             <End Role="mAtencion" EntitySet="mAtencion" />
@@ -453,6 +676,38 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
           <AssociationSet Name="FK_mAuditoria_mPersonas" Association="Self.FK_mAuditoria_mPersonas">
             <End Role="mPersona" EntitySet="mPersona" />
             <End Role="mAuditoria" EntitySet="mAuditoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mCita_mCatalogo" Association="Self.FK_mCita_mCatalogo">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mCita" EntitySet="mCita" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_CiudadResidencia" Association="Self.FK_mPmC_CiudadResidencia">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPersona" EntitySet="mPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_Genero" Association="Self.FK_mPmC_Genero">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPersona" EntitySet="mPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_Modulo" Association="Self.FK_mPmC_Modulo">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPermisos" EntitySet="mPermisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_Nacionalidad" Association="Self.FK_mPmC_Nacionalidad">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPersona" EntitySet="mPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_Permiso" Association="Self.FK_mPmC_Permiso">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPermisos" EntitySet="mPermisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_Rol" Association="Self.FK_mPmC_Rol">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPermisos" EntitySet="mPermisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mPmC_TIdentificacion" Association="Self.FK_mPmC_TIdentificacion">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
+            <End Role="mPersona" EntitySet="mPersona" />
           </AssociationSet>
           <AssociationSet Name="FK_mCita_mPersona" Association="Self.FK_mCita_mPersona">
             <End Role="mPersona" EntitySet="mPersona" />
@@ -462,12 +717,12 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             <End Role="mPersona" EntitySet="mPersona" />
             <End Role="mCita" EntitySet="mCita" />
           </AssociationSet>
-          <AssociationSet Name="FK_rTipoPersona_mPersonas" Association="Self.FK_rTipoPersona_mPersonas">
-            <End Role="mPersona" EntitySet="mPersona" />
-            <End Role="rTipo_Persona" EntitySet="rTipo_Persona" />
-          </AssociationSet>
           <AssociationSet Name="rMedico_Calendario" Association="Self.rMedico_Calendario">
             <End Role="mCalendario" EntitySet="mCalendario" />
+            <End Role="mPersona" EntitySet="mPersona" />
+          </AssociationSet>
+          <AssociationSet Name="rTipo_Persona" Association="Self.rTipo_Persona">
+            <End Role="mCatalogo" EntitySet="mCatalogo" />
             <End Role="mPersona" EntitySet="mPersona" />
           </AssociationSet>
         </EntityContainer>
@@ -476,9 +731,9 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SIHModelStoreContainer" CdmEntityContainer="SIHEntities">
+        <EntityContainerMapping StorageEntityContainer="SHELModelStoreContainer" CdmEntityContainer="SHELEntity">
           <EntitySetMapping Name="mAtencion">
-            <EntityTypeMapping TypeName="SIHModel.mAtencion">
+            <EntityTypeMapping TypeName="SHELModel.mAtencion">
               <MappingFragment StoreEntitySet="mAtencion">
                 <ScalarProperty Name="cita_id" ColumnName="cita_id" />
                 <ScalarProperty Name="diagnostico" ColumnName="diagnostico" />
@@ -488,7 +743,7 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="mAuditoria">
-            <EntityTypeMapping TypeName="SIHModel.mAuditoria">
+            <EntityTypeMapping TypeName="SHELModel.mAuditoria">
               <MappingFragment StoreEntitySet="mAuditoria">
                 <ScalarProperty Name="registro_id" ColumnName="registro_id" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
@@ -499,7 +754,7 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="mCalendario">
-            <EntityTypeMapping TypeName="SIHModel.mCalendario">
+            <EntityTypeMapping TypeName="SHELModel.mCalendario">
               <MappingFragment StoreEntitySet="mCalendario">
                 <ScalarProperty Name="registro_id" ColumnName="registro_id" />
                 <ScalarProperty Name="entre_semana" ColumnName="entre_semana" />
@@ -508,11 +763,12 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
                 <ScalarProperty Name="horario_hasta_m" ColumnName="horario_hasta_m" />
                 <ScalarProperty Name="horario_desde_v" ColumnName="horario_desde_v" />
                 <ScalarProperty Name="horario_hasta_v" ColumnName="horario_hasta_v" />
+                <ScalarProperty Name="intervalo_citas" ColumnName="intervalo_citas" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="mCatalogo">
-            <EntityTypeMapping TypeName="SIHModel.mCatalogo">
+            <EntityTypeMapping TypeName="SHELModel.mCatalogo">
               <MappingFragment StoreEntitySet="mCatalogo">
                 <ScalarProperty Name="registro_id" ColumnName="registro_id" />
                 <ScalarProperty Name="catalogo" ColumnName="catalogo" />
@@ -523,7 +779,7 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="mCita">
-            <EntityTypeMapping TypeName="SIHModel.mCita">
+            <EntityTypeMapping TypeName="SHELModel.mCita">
               <MappingFragment StoreEntitySet="mCita">
                 <ScalarProperty Name="registro_id" ColumnName="registro_id" />
                 <ScalarProperty Name="paciente_id" ColumnName="paciente_id" />
@@ -536,8 +792,19 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="mParametros">
+            <EntityTypeMapping TypeName="SHELModel.mParametros">
+              <MappingFragment StoreEntitySet="mParametros">
+                <ScalarProperty Name="registro_id" ColumnName="registro_id" />
+                <ScalarProperty Name="smtpserver" ColumnName="smtpserver" />
+                <ScalarProperty Name="smtppuerto" ColumnName="smtppuerto" />
+                <ScalarProperty Name="correo_sistema" ColumnName="correo_sistema" />
+                <ScalarProperty Name="clave_correo" ColumnName="clave_correo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="mPermisos">
-            <EntityTypeMapping TypeName="SIHModel.mPermisos">
+            <EntityTypeMapping TypeName="SHELModel.mPermisos">
               <MappingFragment StoreEntitySet="mPermisos">
                 <ScalarProperty Name="registro_id" ColumnName="registro_id" />
                 <ScalarProperty Name="rol_id" ColumnName="rol_id" />
@@ -548,7 +815,7 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="mPersona">
-            <EntityTypeMapping TypeName="SIHModel.mPersona">
+            <EntityTypeMapping TypeName="SHELModel.mPersona">
               <MappingFragment StoreEntitySet="mPersona">
                 <ScalarProperty Name="registro_id" ColumnName="registro_id" />
                 <ScalarProperty Name="identificacion_tipo" ColumnName="identificacion_tipo" />
@@ -566,31 +833,20 @@ advertencia 6002: La tabla o vista 'SIH.dbo.mParametros' no tiene definida ningu
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="rTipo_Persona">
-            <EntityTypeMapping TypeName="SIHModel.rTipo_Persona">
-              <MappingFragment StoreEntitySet="rTipo_Persona">
-                <ScalarProperty Name="persona_id" ColumnName="persona_id" />
-                <ScalarProperty Name="tipopersona_id" ColumnName="tipopersona_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="mParametros">
-            <EntityTypeMapping TypeName="SIHModel.mParametros">
-              <MappingFragment StoreEntitySet="mParametros">
-                <ScalarProperty Name="registro_id" ColumnName="registro_id" />
-                <ScalarProperty Name="smtpserver" ColumnName="smtpserver" />
-                <ScalarProperty Name="smtppuerto" ColumnName="smtppuerto" />
-                <ScalarProperty Name="correo_sistema" ColumnName="correo_sistema" />
-                <ScalarProperty Name="clave_correo" ColumnName="clave_correo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="rMedico_Calendario" TypeName="SIHModel.rMedico_Calendario" StoreEntitySet="rMedico_Calendario">
+          <AssociationSetMapping Name="rMedico_Calendario" TypeName="SHELModel.rMedico_Calendario" StoreEntitySet="rMedico_Calendario">
             <EndProperty Name="mCalendario">
               <ScalarProperty Name="registro_id" ColumnName="calendario_id" />
             </EndProperty>
             <EndProperty Name="mPersona">
               <ScalarProperty Name="registro_id" ColumnName="medico_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="rTipo_Persona" TypeName="SHELModel.rTipo_Persona" StoreEntitySet="rTipo_Persona">
+            <EndProperty Name="mCatalogo">
+              <ScalarProperty Name="registro_id" ColumnName="tipopersona_id" />
+            </EndProperty>
+            <EndProperty Name="mPersona">
+              <ScalarProperty Name="registro_id" ColumnName="persona_id" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>
