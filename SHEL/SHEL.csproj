@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ParametrosController.cs" />
     <Compile Include="Controllers\RegistroController.cs" />
     <Compile Include="Filtros\clsSesiones.cs" />
     <Compile Include="Global.asax.cs">
@@ -181,6 +182,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel\ParametrosViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -239,8 +241,9 @@
     <Content Include="Views\Shared\_LayoutInicial.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Shared\_LayoutMedico.cshtml" />
-    <Content Include="Views\Acceso\Persona.cshtml" />
     <Content Include="Views\Acceso\Index.cshtml" />
+    <Content Include="Views\Parametros\Grabar.cshtml" />
+    <Content Include="Views\Parametros\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

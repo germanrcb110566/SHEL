@@ -1,0 +1,29 @@
+﻿@model List<SHEL.Models.ViewModel.ParametrosViewModel>
+@{
+    ViewBag.Title = "Sistema Hospitalario En Línea";
+}
+
+<br />
+<h4>Parámetros del Sistema</h4>
+<div class="alert aler-@ViewBag.alerta"></div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>SMTPSERVER</th>
+                <th>SMTPPUERTO</th>
+                <th>CORREO SERVIDOR</th>
+            </tr>
+            @foreach (var oElemento in Model)
+            {
+                <tr>
+                    <th>@oElemento.smtpserver</th>
+                    <th>@oElemento.smtppuerto</th>
+                    <th>@oElemento.correo_sistema</th>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

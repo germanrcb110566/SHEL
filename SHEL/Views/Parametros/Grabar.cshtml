@@ -1,0 +1,36 @@
+﻿@model SHEL.Models.ViewModel.ParametrosViewModel
+    
+@{
+    ViewBag.Title = "Mantenimiento de Parametros del Sistema";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="alert aler-@ViewBag.alerta"></div>
+
+<div>
+    @using (Html.BeginForm("Grabar", "Parametros", FormMethod.Post, new { role = "form", @class = "" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationMessage("error", new { @class = "text-danger" })
+
+        @Html.LabelFor(d => d.smtpserver)
+        @Html.TextBoxFor(d => d.smtpserver, new { @class = "form-control" })
+
+        @Html.LabelFor(d => d.smtppuerto)
+        @Html.TextBoxFor(d => d.smtppuerto, new { @class = "form-control" })
+
+        @Html.LabelFor(d => d.correo_sistema)
+        @Html.TextBoxFor(d => d.correo_sistema, new { @class = "form-control" })
+
+        @Html.LabelFor(d => d.clave_correo)
+        @Html.PasswordFor(d => d.clave_correo, new { @class = "form-control" })
+
+        @Html.LabelFor(d => d.confirmar_clave_correo)
+        @Html.PasswordFor(d => d.confirmar_clave_correo, new { @class = "form-control" })
+
+        <button class="btn btn-success" type="submit" name="btngrabar" id="btngrabar">
+            <span class="glyphicon glyphicon-save">Guardar</span>
+        </button>
+    }
+</div>
