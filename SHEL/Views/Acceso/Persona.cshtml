@@ -10,7 +10,7 @@
     <table>
         <tr>
             <td style="padding: 10px">Identificación:</td>
-            <td style="padding: 10px"><input class="form-control" name="identificacion" minlength="6" maxlenght="13" id="identificacion" required /></td>
+            <td style="padding: 10px"><input class="form-control" name="identificacion" minlength="6" maxlenght="13" id="identificacion" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}" required /></td>
         </tr>
 
         <tr>
