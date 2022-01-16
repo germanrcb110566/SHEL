@@ -1,16 +1,24 @@
-﻿@model List<SHEL.Models.ViewModel.ParametrosViewModel>
+﻿@model List<SHEL.Models.TableViewModels.ParametrosTableViewModels>
 @{
     ViewBag.Title = "Sistema Hospitalario En Línea";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <br />
 <h4>Parámetros del Sistema</h4>
 <div class="alert aler-@ViewBag.alerta"></div>
-
+<div class="row">
+    <!--
+        <div class="col-md-12">
+            <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Parametros/Grabar")'" value="Editar"/>
+        </div>
+    -->
+</div>
 <div class="row">
     <div class="col-lg-12">
         <table class="table table-bordered">
             <tr>
+                <th>ID</th>
                 <th>SMTPSERVER</th>
                 <th>SMTPPUERTO</th>
                 <th>CORREO SERVIDOR</th>
@@ -18,12 +26,35 @@
             @foreach (var oElemento in Model)
             {
                 <tr>
-                    <th>@oElemento.smtpserver</th>
-                    <th>@oElemento.smtppuerto</th>
-                    <th>@oElemento.correo_sistema</th>
+                    <td>@oElemento.Registro_id</td>
+                    <td>@oElemento.Smtpserver</td>
+                    <td>@oElemento.Smtppuerto</td>
+                    <td>@oElemento.Correo_sistema</td>
+                    <td>
+                        <!--
+                        <input onclick="jsEliminar(@oElemento.Registro_id)" type="button" value="Eliminar" class="btn btn-danger" />
+                        -->
+                        <input onclick="document.location.href='@Url.Content("~/Parametros/Editar/"+oElemento.Registro_id)'" type="button" value="Editar" class="btn btn-default" />
+                    </td>
                 </tr>
             }
         </table>
     </div>
 </div>
+<script>
+    function jsEliminar(id) {
+        if (confirm("Esta Seguro de Eliminar Registro?") {
+            url = "@Url.Content("~/Parametros/Eliminar")" + "/" + id;
+
+            $.post(url, Function(data){
+                if(data== "1"){
+                document.location.href = "@Url.Content("~/Parametros")"
+            }else {
+                alert("Ocurrio un Error al Eliminar")
+            }
+            })
+        }
+
+    }
+</script>
 

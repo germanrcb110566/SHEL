@@ -1,7 +1,8 @@
-﻿@model SHEL.Models.ViewModel.ParametrosViewModel
-    
+﻿@model SHEL.Models.ViewModel.EditParametrosViewModel
+
 @{
-    ViewBag.Title = "Mantenimiento de Parametros del Sistema";
+    ViewBag.Title = "Modificación Parametros del Sistema";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -9,8 +10,10 @@
 <div class="alert aler-@ViewBag.alerta"></div>
 
 <div>
-    @using (Html.BeginForm("Grabar", "Parametros", FormMethod.Post, new { role = "form", @class = "" }))
+    @using (Html.BeginForm("Editar", "Parametros", FormMethod.Post, new { role = "form", @class = "" }))
     {
+        @Html.HiddenFor(d =>d.Registro_id)
+
         @Html.AntiForgeryToken()
         @Html.ValidationMessage("error", new { @class = "text-danger" })
 
@@ -33,7 +36,7 @@
         @Html.LabelFor(d => d.Confirma_Clave_correo)
         @Html.PasswordFor(d => d.Confirma_Clave_correo, new { @class = "form-control" })
         @Html.ValidationMessage("Confirma_Clave_correo", new { @class = "text-ddanger" })<br />
-        
+
         <button class="btn btn-success" type="submit" name="btngrabar" id="btngrabar">
             <span class="glyphicon glyphicon-save">Guardar</span>
         </button>
