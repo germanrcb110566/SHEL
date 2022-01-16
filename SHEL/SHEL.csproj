@@ -129,9 +129,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccesoController.cs" />
+    <Compile Include="Controllers\CatalogoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParametrosController.cs" />
-    <Compile Include="Controllers\RegistroController.cs" />
     <Compile Include="Filtros\clsSesiones.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -183,6 +183,7 @@
       <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TableViewModels\ParametrosTableViewModels.cs" />
+    <Compile Include="Models\ViewModel\CatalogosViewModel.cs" />
     <Compile Include="Models\ViewModel\ParametrosViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -246,11 +247,10 @@
     <Content Include="Views\Parametros\Grabar.cshtml" />
     <Content Include="Views\Parametros\Index.cshtml" />
     <Content Include="Views\Parametros\Editar.cshtml" />
+    <Content Include="Views\Catalogo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Catalogos\" />
-    <Folder Include="Views\Registro\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
