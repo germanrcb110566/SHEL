@@ -24,5 +24,26 @@ namespace SHEL.Controllers
             }
                 return View(lst);
         }
+        [HttpGet]
+        public JsonResult Catalogo(int IdCatalogo)
+        {
+            List<ElementJsonIntKey> lst = new List<ElementJsonIntKey>();
+            using (Models.SHELEntities db=new Models.SHELEntities())
+            {
+                lst = (from d in db.Catalogo
+                       where d.catalogo_id == IdCatalogo
+                       select new ElementJsonIntKey
+                       {
+                           Value = d.registro_id,
+                           Text = d.nombre
+                       }).ToList();
+            }
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
+        public class ElementJsonIntKey
+        {
+            public int Value { get; set; }
+            public string Text { get; set; }
+        }
     }
 }

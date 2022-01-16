@@ -20,8 +20,8 @@ namespace SHEL.Models
         public int accion_id { get; set; }
         public bool estado { get; set; }
     
-        public virtual mCatalogo mCatalogo { get; set; }
-        public virtual mCatalogo mCatalogo1 { get; set; }
-        public virtual mCatalogo mCatalogo2 { get; set; }
+        public virtual Catalogo Catalogo { get; set; }
+        public virtual Catalogo Catalogo1 { get; set; }
+        public virtual Catalogo Catalogo2 { get; set; }
     }
 }

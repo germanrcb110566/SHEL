@@ -43,59 +43,6 @@ namespace SHEL.Models
                 .HasForeignKey(e => e.calendario_id)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<mCatalogo>()
-                .HasMany(e => e.mCita)
-                .WithRequired(e => e.mCatalogo)
-                .HasForeignKey(e => e.especialidad_id)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<mCatalogo>()
-                .HasMany(e => e.mPersona)
-                .WithRequired(e => e.mCatalogo)
-                .HasForeignKey(e => e.ciudad_residencia)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<mCatalogo>()
-                .HasMany(e => e.mPersona1)
-                .WithRequired(e => e.mCatalogo1)
-                .HasForeignKey(e => e.genero)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<mCatalogo>()
-                .HasMany(e => e.mPermisos)
-                .WithRequired(e => e.mCatalogo)
-                .HasForeignKey(e => e.modulo_id)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<mCatalogo>()
-                .HasMany(e => e.mPersona2)
-                .WithRequired(e => e.mCatalogo2)
-                .HasForeignKey(e => e.nacionalidad)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<mCatalogo>()
-                .HasMany(e => e.mPermisos1)
-                .WithRequired(e => e.mCatalogo1)
-                .HasForeignKey(e => e.accion_id)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<mCatalogo>()
-                .HasMany(e => e.mPermisos2)
-                .WithRequired(e => e.mCatalogo2)
-                .HasForeignKey(e => e.rol_id)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<mCatalogo>()
-                .HasMany(e => e.mPersona3)
-                .WithRequired(e => e.mCatalogo3)
-                .HasForeignKey(e => e.identificacion_tipo)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<mCatalogo>()
-                .HasMany(e => e.rTipo_Persona)
-                .WithRequired(e => e.mCatalogo)
-                .HasForeignKey(e => e.tipopersona_id)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<mCita>()
                 .HasOptional(e => e.mAtencion)

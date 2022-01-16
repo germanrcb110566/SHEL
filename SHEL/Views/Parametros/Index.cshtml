@@ -42,19 +42,23 @@
     </div>
 </div>
 <script>
-    function jsEliminar(id) {
-        if (confirm("Esta Seguro de Eliminar Registro?") {
-            url = "@Url.Content("~/Parametros/Eliminar")" + "/" + id;
+    function jsEliminar(id)
+    {
+        if (confirm("Esta Seguro de Eliminar Registro?")
+            {
+                url = "@Url.Content("~/Parametros/Eliminar")" + "/" + id
 
-            $.post(url, Function(data){
-                if(data== "1"){
-                document.location.href = "@Url.Content("~/Parametros")"
-            }else {
-                alert("Ocurrio un Error al Eliminar")
-            }
-            })
-        }
-
+                $.post(url, Function(data)
+                {
+                    if (data == "1")
+                    {
+                         document.location.href = "@Url.Content("~/Parametros")"
+                    }else{
+                        alert("Ocurrio un Error al Eliminar")
+                    }
+                )}
+    });
     }
+        
 </script>
 

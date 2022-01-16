@@ -18,7 +18,7 @@ namespace SHEL.Models
         public int persona_id { get; set; }
         public int tipopersona_id { get; set; }
     
-        public virtual mCatalogo mCatalogo { get; set; }
+        public virtual Catalogo Catalogo { get; set; }
         public virtual mPersona mPersona { get; set; }
     }
 }

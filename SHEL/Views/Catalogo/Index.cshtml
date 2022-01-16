@@ -1,9 +1,13 @@
 ﻿@model List<SelectListItem>
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <br />
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/jquery.dataTables.js"></script>
 <h4>Mantenimiento de Catálogos</h4>
 <div class="alert aler-@ViewBag.alerta"></div>
 <div class="row">
@@ -16,25 +20,45 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="form-group">
+            ClasesCatalogos
+            @Html.DropDownList("ClaseCatalogo", Model, new { @class = "form-control", id = "ClaseCatalogo" })
+
+        </div>
+        <div class="form-group">
             Catalogo
-            @Html.DropDownList("Catalogo",Model, new { @class = "form-control" } )
-            
+            <select id="IdCatalogo" name="IdCatalogo" class="form-control"></select>
+
         </div>
     </div>
 </div>
+
+
 <script>
-    function jsEliminar(id) {
-        if (confirm("Esta Seguro de Eliminar Registro?") {
-            url = "@Url.Content("~/Parametros/Eliminar")" + "/" + id;
-
-            $.post(url, Function(data){
-                if(data== "1"){
-                document.location.href = "@Url.Content("~/Parametros")"
-            }else {
-                alert("Ocurrio un Error al Eliminar")
-            }
+    var cboClaseCatalogos = document.getElementById("ClaseCatalogo")
+    cboClaseCatalogos.addEventListener("change", Refresh);
+    Refresh()
+    function Refresh()
+    {
+        fetch("@Url.Content("~/Catalogo/Catalogo")" + "?IdCatalogo=" + cboClaseCatalogos.value)
+            .then(function (result) {
+                if (result.ok) {
+                    return result.json();
+                }
             })
-        }
+            .then(function (data) {
+                console.log(data);
+                cbo = document.getElementById("IdCatalogo");
+                cbo.innerHTML = "";
+                data.forEach(function (element) {
+                    
+                    let opt = document.createElement("option");
+                    opt.appendChild(document.createTextNode(element.Text))
+                    opt.value = element.value;
 
+                    cbo.appendChild(opt);
+                })
+            })
     }
+
 </script>
+

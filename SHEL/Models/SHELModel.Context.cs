@@ -25,6 +25,7 @@ namespace SHEL.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Catalogo> Catalogo { get; set; }
         public virtual DbSet<mAtencion> mAtencion { get; set; }
         public virtual DbSet<mAuditoria> mAuditoria { get; set; }
         public virtual DbSet<mCalendario> mCalendario { get; set; }

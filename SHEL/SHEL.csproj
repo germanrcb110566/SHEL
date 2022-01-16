@@ -136,6 +136,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Catalogo.cs">
+      <DependentUpon>SHELModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\mAtencion.cs">
       <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>

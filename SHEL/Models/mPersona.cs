@@ -38,12 +38,12 @@ namespace SHEL.Models
         public string clave { get; set; }
         public bool estado { get; set; }
     
+        public virtual Catalogo Catalogo { get; set; }
+        public virtual Catalogo Catalogo1 { get; set; }
+        public virtual Catalogo Catalogo2 { get; set; }
+        public virtual Catalogo Catalogo3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mAuditoria> mAuditoria { get; set; }
-        public virtual mCatalogo mCatalogo { get; set; }
-        public virtual mCatalogo mCatalogo1 { get; set; }
-        public virtual mCatalogo mCatalogo2 { get; set; }
-        public virtual mCatalogo mCatalogo3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mCita> mCita { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
