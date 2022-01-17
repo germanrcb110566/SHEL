@@ -105,7 +105,7 @@ namespace SHEL.Controllers
 
                 return Redirect(Url.Content("~/Parametros/"));
         }
-        [HttpPost]
+        [HttpGet]
         public ActionResult Eliminar(int Id)
         {
             using (var db = new SHELEntities())
@@ -114,9 +114,10 @@ namespace SHEL.Controllers
                
                 //oParametros.Estado = 0;  //Se Elimina Logicamente El Registro
                 db.Entry(oParametros).State = System.Data.Entity.EntityState.Modified;
+                db.mParametros.Remove(oParametros);
                 db.SaveChanges();               
             }
-            return Content("1");
+            return Redirect(Url.Content("~/Parametros/"));
         }
     }
 }

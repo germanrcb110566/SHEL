@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SHEL.Models.TableViewModels;
+using SHEL.Models.ViewModel;
 
 namespace SHEL.Controllers
 {
@@ -14,13 +16,13 @@ namespace SHEL.Controllers
             List<SelectListItem> lst = new List<SelectListItem>();
             using (Models.SHELEntities db = new Models.SHELEntities())
             {
-                lst = (from d in db.mCatalogo                
+                lst = (from d in db.mCatalogo
+                       where d.estado == true
                        select new SelectListItem
-                       {
+                       {               
                            Value = d.registro_id.ToString(),
                            Text = d.catalogo
                        }).ToList();
-
             }
                 return View(lst);
         }

@@ -185,6 +185,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SHELModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TableViewModels\CatalogosTableViewModels.cs" />
+    <Compile Include="Models\TableViewModels\MCatalogosTableViewModels.cs" />
     <Compile Include="Models\TableViewModels\ParametrosTableViewModels.cs" />
     <Compile Include="Models\ViewModel\CatalogosViewModel.cs" />
     <Compile Include="Models\ViewModel\ParametrosViewModel.cs" />
@@ -251,6 +253,7 @@
     <Content Include="Views\Parametros\Index.cshtml" />
     <Content Include="Views\Parametros\Editar.cshtml" />
     <Content Include="Views\Catalogo\Index.cshtml" />
+    <Content Include="Views\Parametros\Eliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

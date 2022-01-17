@@ -1,0 +1,45 @@
+﻿
+@model SHEL.Models.ViewModel.ParametrosViewModel
+
+@{
+    ViewBag.Title = "Eliminar Parametros del Sistema";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="alert aler-@ViewBag.alerta"></div>
+
+<div>
+    @using (Html.BeginForm("Eliminar", "Parametros", FormMethod.Post, new { role = "form", @class = "" }))
+    {
+        @Html.HiddenFor(d => d.Registro_id)
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationMessage("error", new { @class = "text-danger" })
+
+        @Html.LabelFor(d => d.Smtpserver)
+        @Html.TextBoxFor(d => d.Smtpserver, new { @class = "form-control" })
+        @Html.ValidationMessage("Smtpserver", new { @class = "text-ddanger" })<br />
+
+        @Html.LabelFor(d => d.Smtppuerto)
+        @Html.TextBoxFor(d => d.Smtppuerto, new { @class = "form-control" })
+        @Html.ValidationMessage("Smtppuerto", new { @class = "text-ddanger" })<br />
+
+        @Html.LabelFor(d => d.Correo_sistema)
+        @Html.TextBoxFor(d => d.Correo_sistema, new { @class = "form-control" })
+        @Html.ValidationMessage("Correo_sistema", new { @class = "text-ddanger" })<br />
+
+        @Html.LabelFor(d => d.Clave_correo)
+        @Html.PasswordFor(d => d.Clave_correo, new { @class = "form-control" })
+        @Html.ValidationMessage("Clave_correo", new { @class = "text-ddanger" })<br />
+
+        @Html.LabelFor(d => d.Confirma_Clave_correo)
+        @Html.PasswordFor(d => d.Confirma_Clave_correo, new { @class = "form-control" })
+        @Html.ValidationMessage("Confirma_Clave_correo", new { @class = "text-ddanger" })<br />
+
+        <button class="btn btn-success" type="submit" name="btngrabar" id="btngrabar">
+            <span class="glyphicon glyphicon-save">Guardar</span>
+        </button>
+    }
+</div>
