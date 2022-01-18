@@ -114,7 +114,7 @@ namespace SHEL.Controllers
                
                 //oParametros.Estado = 0;  //Se Elimina Logicamente El Registro
                 db.Entry(oParametros).State = System.Data.Entity.EntityState.Modified;
-                db.mParametros.Remove(oParametros);
+                //db.mParametros.Remove(oParametros);
                 db.SaveChanges();               
             }
             return Redirect(Url.Content("~/Parametros/"));

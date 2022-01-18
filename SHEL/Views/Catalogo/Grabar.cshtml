@@ -1,0 +1,32 @@
+﻿@model SHEL.Models.ViewModel.CatalogosViewModel
+
+@{
+    ViewBag.Title = "Mantenimiento de Maestro de Catalogos ";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="alert aler-@ViewBag.alerta"></div>
+
+<div>
+    @using (Html.BeginForm("Grabar", "Catalogo", FormMethod.Post, new { role = "form", @class = "" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationMessage("error", new { @class = "text-danger" })
+
+        @Html.LabelFor(d => d.Catalogo)
+        @Html.TextBoxFor(d => d.Catalogo, new { @class = "form-control" })
+        @Html.ValidationMessage("Catalogo", new { @class = "text-ddanger" })<br />
+
+
+        <button class="btn btn-primary" type="submit" name="btngrabar" id="btngrabar">
+            <span class="glyphicon glyphicon-save">Guardar</span>
+        </button>
+
+    }
+    
+    @if (TempData["msg"] != null)
+    {
+     @Html.Raw(TempData["msg"])
+    }
+</div>

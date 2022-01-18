@@ -1,0 +1,41 @@
+﻿@model SHEL.Models.ViewModel.EditAtributosCatalogoViewModel
+
+
+@{
+    ViewBag.Title = "Mantenimiento de Maestro de Catalogos ";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="alert aler-@ViewBag.alerta"></div>
+
+<div>
+    
+
+    @using (Html.BeginForm("GrabarAtributo", "Catalogo", FormMethod.Post, new { role = "form", @class = "" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationMessage("error", new { @class = "text-danger" })
+
+        @Html.LabelFor(d => d.Catalogo_id)
+        @Html.TextBoxFor(d => d.Catalogo_id, new { @class = "form-control" })
+        @Html.ValidationMessage("Catalogo_id", new { @class = "text-ddanger" })<br />
+        @Html.LabelFor(d => d.Nombre)
+        @Html.TextBoxFor(d => d.Nombre, new { @class = "form-control" })
+        @Html.ValidationMessage("Nombre", new { @class = "text-ddanger" })<br />
+        @Html.LabelFor(d => d.Descripcion)
+        @Html.TextBoxFor(d => d.Descripcion, new { @class = "form-control" })
+        @Html.ValidationMessage("Descripcion", new { @class = "text-ddanger" })<br />
+
+
+        <button class="btn btn-primary" type="submit" name="btngrabar" id="btngrabar">
+            <span class="glyphicon glyphicon-save">Guardar</span>
+        </button>
+
+    }
+
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
+</div>

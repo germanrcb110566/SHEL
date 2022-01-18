@@ -254,6 +254,12 @@
     <Content Include="Views\Parametros\Editar.cshtml" />
     <Content Include="Views\Catalogo\Index.cshtml" />
     <Content Include="Views\Parametros\Eliminar.cshtml" />
+    <Content Include="Views\Catalogo\Grabar.cshtml" />
+    <Content Include="Views\Catalogo\Editar.cshtml" />
+    <Content Include="Views\Catalogo\Eliminar.cshtml" />
+    <Content Include="Views\Catalogo\GrabarAtributo.cshtml" />
+    <Content Include="Views\Catalogo\EditarAtributo.cshtml" />
+    <Content Include="Views\Catalogo\EliminarAtributo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

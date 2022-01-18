@@ -26,18 +26,21 @@
                         Catálogo
                     </td>
                     <td>
-                        
+
                         @Html.DropDownList("ClaseCatalogo", Model, new { @class = "form-control", id = "ClaseCatalogo" })
+
+
+
                     </td>
                     <td>
-                        <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Parametros/Grabar")'" value="Crear" />
-                        <input onclick="document.location.href='@Url.Content("~/Parametros/Editar/")'" type="button" value="Editar" class="btn btn-default" />
-                        <input onclick="jsEliminar(Registro_id)" type="button" value="Eliminar" class="btn btn-danger" />
+                        <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Catalogo/Grabar")'" value="Crear" />
+                        <input onclick="jsEditar();" type="button" value="Editar" class="btn btn-success" formmethod="get" />
+                        <input onclick="jsEliminar()" type="button" value="Eliminar" class="btn btn-danger" />
                     </td>
                 </tr>
             </table>
         </div>
-        
+
 
         <div class="form-group">
             <table class="table ">
@@ -46,49 +49,117 @@
                         Atributos Catálogo
                     </td>
                     <td>
-                        
+
                         <select id="IdCatalogo" name="IdCatalogo" class="form-control"></select>
                     </td>
                     <td>
-                        <input onclick="document.location.href='@Url.Content("~/Parametros/Editar/")'" type="button" value="Editar" class="btn btn-default" />
-                        <input onclick="document.location.href='@Url.Content("~/Parametros/Editar/")'" type="button" value="Editar" class="btn btn-default" />
-                        <input onclick="jsEliminar(Registro_id)" type="button" value="Eliminar" class="btn btn-danger" />
+                        <<input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Catalogo/GrabarAtributo")'" value="Crear" />
+                        <input onclick="jsEditarAtributo();" type="button" value="Editar" class="btn btn-success" formmethod="get" />
+                        <input onclick="jsEliminarAtributo()" type="button" value="Eliminar" class="btn btn-danger" />
 
-                        
+
                     </td>
                 </tr>
             </table>
         </div>
     </div>
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
 </div>
 
 
+
 <script>
+
     var cboClaseCatalogos = document.getElementById("ClaseCatalogo")
+
     cboClaseCatalogos.addEventListener("change", Refresh);
     Refresh()
     function Refresh()
     {
-        fetch("@Url.Content("~/Catalogo/Catalogo")" + "?IdCatalogo=" + cboClaseCatalogos.value)
-            .then(function (result) {
-                if (result.ok) {
-                    return result.json();
-                }
-            })
-            .then(function (data) {
-                console.log(data);
-                cbo = document.getElementById("IdCatalogo");
-                cbo.innerHTML = "";
-                data.forEach(function (element) {
-                    
-                    let opt = document.createElement("option");
-                    opt.appendChild(document.createTextNode(element.Text))
-                    opt.value = element.value;
 
-                    cbo.appendChild(opt);
-                })
-            })
+        fetch("@Url.Content("~/Catalogo/Catalogo")" + "?IdCatalogo=" + cboClaseCatalogos.value)
+        .then(function (result) {
+        if (result.ok) {
+        return result.json();
+        }
+        })
+        .then(function (data) {
+        console.log(data);
+        cbo = document.getElementById("IdCatalogo");
+        cbo.innerHTML = "";
+        data.forEach(function (element) {
+
+        let opt = document.createElement("option");
+        opt.appendChild(document.createTextNode(element.Text))
+        opt.value = element.value;
+
+        cbo.appendChild(opt);
+        })
+        })
     }
 
+
+
 </script>
+
+<script>
+    function jsEditar() {
+        document.location.href = "@Url.Content("~/Catalogo/Editar/")" + cboClaseCatalogos.value
+        $.post(url, function (data) {
+            if (data == "1") {
+
+                document.location.href = "@Url.Content("~/Catalogo/Editar/")" + cboClaseCatalogos.value
+            }
+            else {
+                alert("Ocurrio un Error al Eliminar")
+            }
+        })
+    }
+</script>
+<script>
+    function jsEliminar() {
+        document.location.href = "@Url.Content("~/Catalogo/Eliminar/")" + cboClaseCatalogos.value
+        $.post(url, function (data) {
+            if (data == "1") {
+
+                document.location.href = "@Url.Content("~/Catalogo/Eliminar/")" + cboClaseCatalogos.value
+            }
+            else {
+                alert("Ocurrio un Error al Eliminar")
+            }
+        })
+    }
+</script>
+<script>
+    function jsEditarAtributo() {
+        document.location.href = "@Url.Content("~/Catalogo/EditarAtributo/")" + cbo.value
+        $.post(url, function (data) {
+            if (data == "1") {
+
+                document.location.href = "@Url.Content("~/Catalogo/EditarAtributo/")" + cbo.value
+            }
+            else {
+                alert("Ocurrio un Error al Eliminar")
+            }
+        })
+    }
+</script>
+<script>
+    function jsEliminarAtributo() {
+        document.location.href = "@Url.Content("~/Catalogo/EliminarAtributo/")" + cbo.value
+        $.post(url, function (data) {
+            if (data == "1") {
+
+                document.location.href = "@Url.Content("~/Catalogo/EliminarAtributo/")" + cbo.value
+            }
+            else {
+                alert("Ocurrio un Error al Eliminar")
+            }
+        })
+    }
+</script>
+
 

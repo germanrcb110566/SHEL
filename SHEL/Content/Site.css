@@ -1,6 +1,19 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿/*body {
+    padding-top: 500px;
+    padding-bottom: 200px;
+}
+    */
+body {
+    position: relative;
+    left: 200px;
+    /*min-height: 600vh;
+    max-width: 800px;*/
+    background-color: papayawhip;
+    margin: 0 auto;
+    min-height: 100vh;
+    max-width: 400px;
+    background-color: papayawhip;
+    margin: 0 auto;
 }
 
 /* Set padding to keep content from hitting the edges */
